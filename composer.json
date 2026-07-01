@@ -1,0 +1,6 @@
+{
+    "require": {
+        "league/oauth2-server": "^8.4",
+        "laminas/laminas-diactoros": "^3.8"
+    }
+}
