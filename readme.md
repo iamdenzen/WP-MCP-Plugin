@@ -112,17 +112,113 @@ includes/
 
 ---
 
-## Extending
+# Registering Custom MCP Tools
 
-Register your own MCP tools.
+WP MCP Server allows plugins and themes to register their own MCP tools without modifying the core plugin.
+
+## Register a Tool
+
+Hook into the `wp_mcp_server_register_tools` action and register your tool with the provided `ToolRegistry` instance.
 
 ```php
-$registry->register(
-    new MyCustomTool()
+use WP_MCP_Server\Tools\ToolRegistry;
+
+add_action(
+	'wp_mcp_server_register_tools',
+	function ( ToolRegistry $registry ): void {
+		$registry->register( new My_Custom_Tool() );
+	}
 );
 ```
 
-Or expose your own plugin, WooCommerce extension, CRM, ERP, or custom database through the MCP protocol.
+## Create a Tool
+
+Every tool must implement `WP_MCP_Server\Tools\Contracts\ToolInterface`.
+
+Example:
+
+```php
+<?php
+
+use WP_MCP_Server\Tools\Contracts\ToolInterface;
+
+class My_Custom_Tool implements ToolInterface {
+
+	public function name(): string {
+		return 'my_custom_tool';
+	}
+
+	public function description(): string {
+		return 'Returns custom data.';
+	}
+
+	public function input_schema(): array {
+		return [
+			'type'       => 'object',
+			'properties' => [
+				'id' => [
+					'type'        => 'integer',
+					'description' => 'Object ID.',
+				],
+			],
+		];
+	}
+
+	public function output_schema(): ?array {
+		return null;
+	}
+
+	public function annotations(): array {
+		return [];
+	}
+
+	public function required_scopes(): array {
+		return [ 'wp:read' ];
+	}
+
+	public function execute( array $arguments = [] ): array {
+		return [
+			'content' => [
+				[
+					'type' => 'text',
+					'text' => 'Hello from my custom tool!',
+				],
+			],
+		];
+	}
+}
+```
+
+## Best Practices
+
+- Use a unique tool name (e.g. `myplugin_get_orders`).
+- Validate and sanitize all input arguments.
+- Return only the data required by the client.
+- Define the minimum OAuth scopes required for the tool.
+- Follow the MCP response format.
+- Avoid exposing sensitive WordPress or plugin data.
+- Keep tools focused on a single responsibility.
+
+## Registration Flow
+
+```
+WordPress loads
+        │
+        ▼
+WP MCP Server creates ToolRegistry
+        │
+        ▼
+Built-in tools are registered
+        │
+        ▼
+wp_mcp_server_register_tools action fires
+        │
+        ▼
+Your plugin registers its tools
+        │
+        ▼
+All tools become available through tools/list
+```
 
 ---
 
