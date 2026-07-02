@@ -22,7 +22,7 @@ class Server {
 		$provider = new BuiltInToolProvider();
 		$provider->register( $registry );
 
-		$registry->register_defaults();
+		$registry->register_external_tools();
 
 		$this->dispatcher = new Dispatcher( $registry, $auth_context );
 	}

@@ -54,7 +54,7 @@ class ToolRegistry {
 		return $tools;
 	}
 	
-	public function register_defaults(): void {
+	public function register_external_tools(): void {
 		/**
 		 * Fires before default MCP tools are registered.
 		 */
