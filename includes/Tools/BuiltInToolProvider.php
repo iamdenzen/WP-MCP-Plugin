@@ -20,14 +20,17 @@ use WP_MCP_Server\Tools\WooCommerce\System\GetPaymentGatewaysTool as WooPaymentG
 use WP_MCP_Server\Tools\WooCommerce\System\GetTaxClassesTool as WooTaxClassesTool;
 
 use WP_MCP_Server\Tools\WooCommerce\SearchProductsTool as WooSearchProductsTool;
-use WP_MCP_Server\Tools\WooCommerce\SearchProductsTool as WooGetProductTool;
+use WP_MCP_Server\Tools\WooCommerce\GetProductTool as WooGetProductTool;
 use WP_MCP_Server\Tools\WooCommerce\ListProductCategoriesTool as WooGetCategoriesTool;
 use WP_MCP_Server\Tools\WooCommerce\GetProductVariationsTool as WooGetVariationsTool;
 use WP_MCP_Server\Tools\WooCommerce\ListProductAttributesTool as WooGetAttributesTool;
 use WP_MCP_Server\Tools\WooCommerce\GetProductReviewsTool as WooGetReviewsTool;
+use WP_MCP_Server\Tools\WooCommerce\GetProductStatusSummaryTool;
 
 use WP_MCP_Server\Tools\WooCommerce\SearchOrdersTool as WooSearchOrdersTool;
 use WP_MCP_Server\Tools\WooCommerce\GetOrderTool as WooGetOrderTool;
+use WP_MCP_Server\Tools\WooCommerce\GetOrderStatusSummaryTool;
+use WP_MCP_Server\Tools\WooCommerce\GetOrderReportTool;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -58,9 +61,14 @@ class BuiltInToolProvider {
 		$registry->register( new WooGetProductTool() );
 		$registry->register( new WooGetCategoriesTool() );
 		$registry->register( new WooGetVariationsTool() );
+		$registry->register( new WooGetAttributesTool() );
 		$registry->register( new WooGetReviewsTool() );
+		$registry->register( new GetProductStatusSummaryTool() );
 		
 		$registry->register( new WooSearchOrdersTool() );
 		$registry->register( new WooGetOrderTool() );
+		$registry->register( new GetOrderStatusSummaryTool() );
+		$registry->register( new GetOrderReportTool() );
+
 	}
 }

@@ -87,9 +87,14 @@ require_once WP_MCP_SERVER_PATH . 'includes/Tools/WooCommerce/ListProductCategor
 require_once WP_MCP_SERVER_PATH . 'includes/Tools/WooCommerce/GetProductVariationsTool.php';
 require_once WP_MCP_SERVER_PATH . 'includes/Tools/WooCommerce/ListProductAttributesTool.php';
 require_once WP_MCP_SERVER_PATH . 'includes/Tools/WooCommerce/GetProductReviewsTool.php';
+require_once WP_MCP_SERVER_PATH . 'includes/Tools/WooCommerce/GetProductStatusSummaryTool.php';
 
 require_once WP_MCP_SERVER_PATH . 'includes/Tools/WooCommerce/SearchOrdersTool.php';
 require_once WP_MCP_SERVER_PATH . 'includes/Tools/WooCommerce/GetOrderTool.php';
+require_once WP_MCP_SERVER_PATH . 'includes/Tools/WooCommerce/GetOrderStatusSummaryTool.php';
+require_once WP_MCP_SERVER_PATH . 'includes/Tools/WooCommerce/GetOrderReportTool.php';
+
+require_once WP_MCP_SERVER_PATH . 'includes/Services/WooReportService.php';
 
 require_once WP_MCP_SERVER_PATH . 'includes/Tools/WooCommerce/System/GetSettingsTool.php';
 require_once WP_MCP_SERVER_PATH . 'includes/Tools/WooCommerce/System/GetStoreStatusTool.php';
