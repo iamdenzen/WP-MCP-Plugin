@@ -28,6 +28,7 @@ class Plugin {
 			( new \WP_MCP_Server\Admin\OAuthClientsPage() )->register();
 			( new \WP_MCP_Server\Admin\OAuthStatusPage() )->register();
 			( new \WP_MCP_Server\Admin\OAuthConnectedAppsPage() )->register();
+			( new \WP_MCP_Server\Admin\RestApiTokenPage() )->register();
 		}
 	}
 

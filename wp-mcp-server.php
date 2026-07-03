@@ -23,6 +23,9 @@ require_once WP_MCP_SERVER_PATH . 'vendor/autoload.php';
 require_once WP_MCP_SERVER_PATH . 'includes/Admin/OAuthClientsPage.php';
 require_once WP_MCP_SERVER_PATH . 'includes/Admin/OAuthStatusPage.php';
 require_once WP_MCP_SERVER_PATH . 'includes/Admin/OAuthConnectedAppsPage.php';
+require_once WP_MCP_SERVER_PATH . 'includes/Admin/RestApiTokenPage.php';
+
+require_once WP_MCP_SERVER_PATH . 'includes/Auth/RestApiTokenAuth.php';
 
 require_once WP_MCP_SERVER_PATH . 'includes/Auth/OAuth/ScopeRegistry.php';
 require_once WP_MCP_SERVER_PATH . 'includes/Auth/OAuth/OAuthInstaller.php';
@@ -52,6 +55,7 @@ require_once WP_MCP_SERVER_PATH . 'includes/Core/Plugin.php';
 require_once WP_MCP_SERVER_PATH . 'includes/Core/Settings.php';
 
 require_once WP_MCP_SERVER_PATH . 'includes/HTTP/RestRouter.php';
+require_once WP_MCP_SERVER_PATH . 'includes/HTTP/Controllers/RestToolsController.php';
 require_once WP_MCP_SERVER_PATH . 'includes/HTTP/Controllers/MCPController.php';
 
 require_once WP_MCP_SERVER_PATH . 'includes/MCP/Server.php';

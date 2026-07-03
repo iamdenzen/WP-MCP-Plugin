@@ -3,6 +3,8 @@
 namespace WP_MCP_Server\HTTP;
 
 use WP_MCP_Server\HTTP\Controllers\MCPController;
+use WP_MCP_Server\HTTP\Controllers\RestToolsController;
+use WP_MCP_Server\Auth\RestApiTokenAuth;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -25,11 +27,21 @@ class RestRouter {
 
 		register_rest_route(
 			$this->namespace,
-			'/mcp',
+			'/tools',
+			[
+				'methods'             => 'GET',
+				'callback'            => [ new RestToolsController(), 'list_tools' ],
+				'permission_callback' => [ RestApiTokenAuth::class, 'verify' ],
+			]
+		);
+
+		register_rest_route(
+			$this->namespace,
+			'/tools/call',
 			[
 				'methods'             => 'POST',
-				'callback'            => [ new MCPController(), 'handle' ],
-				'permission_callback' => '__return_true',
+				'callback'            => [ new RestToolsController(), 'call_tool' ],
+				'permission_callback' => [ RestApiTokenAuth::class, 'verify' ],
 			]
 		);
 	}
