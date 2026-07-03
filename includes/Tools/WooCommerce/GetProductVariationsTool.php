@@ -80,7 +80,7 @@ class GetProductVariationsTool implements ToolInterface {
 				continue;
 			}
 
-			$variations[] = [
+			$data = [
 				'id'             => $variation->get_id(),
 				'sku'            => $variation->get_sku(),
 				'name'           => $variation->get_name(),
@@ -107,6 +107,18 @@ class GetProductVariationsTool implements ToolInterface {
 					]
 					: null,
 			];
+
+			$data = apply_filters(
+				'wp_mcp_server_woocommerce_variation_data',
+				$data,
+				$product,
+				[
+					'product_id'   => $product->get_id(),
+					'variation_id' => $variation->get_id(),
+				]
+			);
+			
+			$variations[] = $data;
 		}
 
 		return ToolResponse::json(

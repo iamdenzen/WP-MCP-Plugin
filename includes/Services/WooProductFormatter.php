@@ -26,7 +26,7 @@ class WooProductFormatter {
 	}
 
 	public function full( \WC_Product $product ): array {
-		return [
+		$data = [
 			'id'                 => $product->get_id(),
 			'type'               => $product->get_type(),
 			'name'               => $product->get_name(),
@@ -79,6 +79,15 @@ class WooProductFormatter {
 				? array_map( 'absint', $product->get_children() )
 				: [],
 		];
+
+		$data = apply_filters(
+			'wp_mcp_server_woocommerce_product_data',
+			$data,
+			$product,
+			[
+				'product_id'   => $product->get_id()
+			]
+		);
 	}
 
 	private function image( int $attachment_id ): ?array {
