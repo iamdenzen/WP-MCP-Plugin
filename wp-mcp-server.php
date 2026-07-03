@@ -20,6 +20,7 @@ define( 'WP_MCP_SERVER_URL', plugin_dir_url( __FILE__ ) );
 
 require_once WP_MCP_SERVER_PATH . 'vendor/autoload.php';
 
+require_once WP_MCP_SERVER_PATH . 'includes/Admin/AdminMenu.php';
 require_once WP_MCP_SERVER_PATH . 'includes/Admin/OAuthClientsPage.php';
 require_once WP_MCP_SERVER_PATH . 'includes/Admin/OAuthStatusPage.php';
 require_once WP_MCP_SERVER_PATH . 'includes/Admin/OAuthConnectedAppsPage.php';

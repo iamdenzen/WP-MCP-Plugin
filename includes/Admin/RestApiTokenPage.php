@@ -16,7 +16,7 @@ class RestApiTokenPage {
 
 	public function add_menu_page(): void {
 		add_submenu_page(
-			'options-general.php',
+			'wp-mcp-server',
 			'MCP REST API Token',
 			'MCP REST API Token',
 			'manage_options',

@@ -15,7 +15,7 @@ class OAuthStatusPage {
 
 	public function add_menu_page(): void {
 		add_submenu_page(
-			'options-general.php',
+			'wp-mcp-server',
 			'MCP OAuth Status',
 			'MCP OAuth Status',
 			'manage_options',

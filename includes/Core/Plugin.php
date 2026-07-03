@@ -25,6 +25,7 @@ class Plugin {
 		
 		// OAuth Admin Page
 		if ( is_admin() ) {
+			( new \WP_MCP_Server\Admin\AdminMenu() )->register()
 			( new \WP_MCP_Server\Admin\OAuthClientsPage() )->register();
 			( new \WP_MCP_Server\Admin\OAuthStatusPage() )->register();
 			( new \WP_MCP_Server\Admin\OAuthConnectedAppsPage() )->register();

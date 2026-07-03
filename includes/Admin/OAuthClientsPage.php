@@ -17,7 +17,7 @@ class OAuthClientsPage {
 
 	public function add_menu_page(): void {
 		add_submenu_page(
-			'options-general.php',
+			'wp-mcp-server',
 			'MCP OAuth Clients',
 			'MCP OAuth Clients',
 			'manage_options',

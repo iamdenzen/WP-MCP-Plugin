@@ -17,7 +17,7 @@ class OAuthConnectedAppsPage {
 
 	public function add_menu_page(): void {
 		add_submenu_page(
-			'options-general.php',
+			'wp-mcp-server',
 			'MCP Connected Apps',
 			'MCP Connected Apps',
 			'manage_options',
