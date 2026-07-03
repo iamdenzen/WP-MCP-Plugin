@@ -141,7 +141,7 @@ class OAuthConnectedAppsPage {
                     'page'    => 'wp-mcp-connected-apps',
                     'revoked' => '1',
                 ],
-                admin_url( 'options-general.php' )
+                admin_url( 'admin.php' )
             )
         );
         exit;

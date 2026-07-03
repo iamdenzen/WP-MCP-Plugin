@@ -161,8 +161,8 @@ class OAuthStatusPage {
 			'MCP Endpoint'                  => home_url( '/mcp' ),
 			'Protected Resource Metadata'  => home_url( '/.well-known/oauth-protected-resource' ),
 			'Authorization Server Metadata'=> home_url( '/.well-known/oauth-authorization-server' ),
-			'Authorize Endpoint'           => home_url( '/authorize' ),
-			'Token Endpoint'               => home_url( '/token' ),
+			'Authorize Endpoint'           => home_url( '/mcp/authorize' ),
+			'Token Endpoint'               => home_url( '/mcp/token' ),
 		];
 	}
 

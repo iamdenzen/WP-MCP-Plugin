@@ -35,15 +35,18 @@ class OAuthClientsPage {
 
 		$table   = $wpdb->prefix . 'mcp_oauth_clients';
 		$clients = $wpdb->get_results( "SELECT * FROM {$table} ORDER BY id DESC" );
-		$secret  = isset( $_GET['client_secret'] ) ? sanitize_text_field( wp_unslash( $_GET['client_secret'] ) ) : '';
+		$url_client_id  = isset( $_GET['client_id'] ) ? sanitize_text_field( wp_unslash( $_GET['client_id'] ) ) : '';
+		$url_secret  = isset( $_GET['client_secret'] ) ? sanitize_text_field( wp_unslash( $_GET['client_secret'] ) ) : '';
 		?>
 		<div class="wrap">
 			<h1>MCP OAuth Clients</h1>
 
-			<?php if ( $secret ) : ?>
+			<?php if ( $url_secret ) : ?>
 				<div class="notice notice-success">
+					<p><strong>Client ID:</strong></p>
+					<input type="text" readonly value="<?php echo esc_attr( $url_client_id ); ?>" style="width: 500px;">
 					<p><strong>Client Secret:</strong></p>
-					<input type="text" readonly value="<?php echo esc_attr( $secret ); ?>" style="width: 500px;">
+					<input type="text" readonly value="<?php echo esc_attr( $url_secret ); ?>" style="width: 500px;">
 					<p><strong>Copy this now.</strong> It will not be shown again.</p>
 				</div>
 			<?php endif; ?>
@@ -86,7 +89,7 @@ class OAuthClientsPage {
 				<?php submit_button( 'Create OAuth Client' ); ?>
 			</form>
 
-			<hr>
+			<!--<hr>
 
 			<h2>Existing Clients</h2>
 
@@ -117,7 +120,7 @@ class OAuthClientsPage {
 						<?php endforeach; ?>
 					<?php endif; ?>
 				</tbody>
-			</table>
+			</table>-->
 		</div>
         <style>.scope-col{word-break:break-all;max-width:500px;}</style>
 		<?php
@@ -177,9 +180,10 @@ class OAuthClientsPage {
 			add_query_arg(
 				[
 					'page'          => 'wp-mcp-oauth-clients',
+					'client_id'     => $client_id,
 					'client_secret' => rawurlencode( $client_secret ),
 				],
-				admin_url( 'options-general.php' )
+				admin_url( 'admin.php' )
 			)
 		);
 		exit;

@@ -114,7 +114,7 @@ class RestApiTokenPage {
 					'page'      => 'wp-mcp-rest-api-token',
 					'new_token' => rawurlencode( $token ),
 				],
-				admin_url( 'options-general.php' )
+				admin_url( 'admin.php' )
 			)
 		);
 		exit;
@@ -137,7 +137,7 @@ class RestApiTokenPage {
 					'page'    => 'wp-mcp-rest-api-token',
 					'revoked' => '1',
 				],
-				admin_url( 'options-general.php' )
+				admin_url( 'admin.php' )
 			)
 		);
 		exit;
