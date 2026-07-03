@@ -80,6 +80,105 @@ class SiteSettingsTool implements ToolInterface {
 	}
 
 	public function output_schema(): ?array {
-		return null;
+		return [
+			'type'       => 'object',
+			'required'   => [
+				'site',
+				'formatting',
+				'reading',
+				'discussion',
+				'permalinks',
+				'users',
+			],
+			'properties' => [
+				'site' => [
+					'type'       => 'object',
+					'required'   => [
+						'name',
+						'description',
+						'site_url',
+						'home_url',
+						'language',
+						'timezone',
+					],
+					'properties' => [
+						'name'        => [ 'type' => 'string' ],
+						'description' => [ 'type' => 'string' ],
+						'site_url'    => [ 'type' => 'string', 'format' => 'uri' ],
+						'home_url'    => [ 'type' => 'string', 'format' => 'uri' ],
+						'language'    => [ 'type' => 'string' ],
+						'timezone'    => [ 'type' => 'string' ],
+					],
+				],
+				'formatting' => [
+					'type'       => 'object',
+					'required'   => [
+						'date_format',
+						'time_format',
+						'start_of_week',
+					],
+					'properties' => [
+						'date_format'   => [ 'type' => 'string' ],
+						'time_format'   => [ 'type' => 'string' ],
+						'start_of_week' => [ 'type' => 'integer' ],
+					],
+				],
+				'reading' => [
+					'type'       => 'object',
+					'required'   => [
+						'posts_per_page',
+						'show_on_front',
+						'page_on_front',
+						'page_for_posts',
+						'blog_public',
+					],
+					'properties' => [
+						'posts_per_page' => [ 'type' => 'integer' ],
+						'show_on_front'  => [
+							'type' => 'string',
+							'enum' => [ 'posts', 'page' ],
+						],
+						'page_on_front'  => [ 'type' => 'integer' ],
+						'page_for_posts' => [ 'type' => 'integer' ],
+						'blog_public'    => [ 'type' => 'boolean' ],
+					],
+				],
+				'discussion' => [
+					'type'       => 'object',
+					'required'   => [
+						'default_comment_status',
+						'default_ping_status',
+						'comments_notify',
+						'moderation_notify',
+					],
+					'properties' => [
+						'default_comment_status' => [
+							'type' => 'string',
+							'enum' => [ 'open', 'closed' ],
+						],
+						'default_ping_status' => [
+							'type' => 'string',
+							'enum' => [ 'open', 'closed' ],
+						],
+						'comments_notify'   => [ 'type' => 'boolean' ],
+						'moderation_notify' => [ 'type' => 'boolean' ],
+					],
+				],
+				'permalinks' => [
+					'type'       => 'object',
+					'required'   => [ 'structure' ],
+					'properties' => [
+						'structure' => [ 'type' => 'string' ],
+					],
+				],
+				'users' => [
+					'type'       => 'object',
+					'required'   => [ 'users_can_register' ],
+					'properties' => [
+						'users_can_register' => [ 'type' => 'boolean' ],
+					],
+				],
+			],
+		];
 	}
 }

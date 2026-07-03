@@ -88,6 +88,54 @@ class ThemeInfoTool implements ToolInterface {
 	}
 
 	public function output_schema(): ?array {
-		return null;
+		return [
+			'type'       => 'object',
+			'required'   => [ 'active_theme', 'parent_theme', 'theme_supports' ],
+			'properties' => [
+				'active_theme' => [
+					'type'       => 'object',
+					'required'   => [
+						'name',
+						'version',
+						'description',
+						'author',
+						'author_uri',
+						'theme_uri',
+						'template',
+						'stylesheet',
+						'text_domain',
+						'is_child',
+					],
+					'properties' => [
+						'name'        => [ 'type' => 'string' ],
+						'version'     => [ 'type' => 'string' ],
+						'description' => [ 'type' => 'string' ],
+						'author'      => [ 'type' => 'string' ],
+						'author_uri'  => [ 'type' => 'string' ],
+						'theme_uri'   => [ 'type' => 'string' ],
+						'template'    => [ 'type' => 'string' ],
+						'stylesheet'  => [ 'type' => 'string' ],
+						'text_domain' => [ 'type' => 'string' ],
+						'is_child'    => [ 'type' => 'boolean' ],
+					],
+				],
+				'parent_theme' => [
+					'type' => [ 'object', 'null' ],
+					'properties' => [
+						'name'       => [ 'type' => 'string' ],
+						'version'    => [ 'type' => 'string' ],
+						'author'     => [ 'type' => 'string' ],
+						'template'   => [ 'type' => 'string' ],
+						'stylesheet' => [ 'type' => 'string' ],
+					],
+				],
+				'theme_supports' => [
+					'type' => 'object',
+					'additionalProperties' => [
+						'type' => 'boolean',
+					],
+				],
+			],
+		];
 	}
 }

@@ -73,6 +73,78 @@ class RewriteStatusTool implements ToolInterface {
 	}
 
 	public function output_schema(): ?array {
-		return null;
+		return [
+			'type'       => 'object',
+			'required'   => [ 'permalinks', 'rewrite', 'endpoints' ],
+			'properties' => [
+				'permalinks' => [
+					'type'       => 'object',
+					'required'   => [
+						'structure',
+						'using_pretty_urls',
+						'category_base',
+						'tag_base',
+					],
+					'properties' => [
+						'structure' => [ 'type' => 'string' ],
+						'using_pretty_urls' => [ 'type' => 'boolean' ],
+						'category_base' => [ 'type' => 'string' ],
+						'tag_base' => [ 'type' => 'string' ],
+					],
+				],
+				'rewrite' => [
+					'type'       => 'object',
+					'required'   => [
+						'rules_generated',
+						'rules_count',
+						'use_trailing_slashes',
+						'index',
+						'pagination_base',
+						'comments_pagination_base',
+						'search_base',
+						'author_base',
+					],
+					'properties' => [
+						'rules_generated' => [ 'type' => 'boolean' ],
+						'rules_count' => [ 'type' => 'integer' ],
+						'use_trailing_slashes' => [
+							'type' => [ 'boolean', 'null' ],
+						],
+						'index' => [
+							'type' => [ 'string', 'null' ],
+						],
+						'pagination_base' => [
+							'type' => [ 'string', 'null' ],
+						],
+						'comments_pagination_base' => [
+							'type' => [ 'string', 'null' ],
+						],
+						'search_base' => [
+							'type' => [ 'string', 'null' ],
+						],
+						'author_base' => [
+							'type' => [ 'string', 'null' ],
+						],
+					],
+				],
+				'endpoints' => [
+					'type'       => 'object',
+					'required'   => [
+						'mcp_clean_endpoint',
+						'rest_mcp_endpoint',
+					],
+					'properties' => [
+						'mcp_clean_endpoint' => [
+							'type'   => 'string',
+							'format' => 'uri',
+						],
+						'rest_mcp_endpoint' => [
+							'type'   => 'string',
+							'format' => 'uri',
+						],
+					],
+				],
+			],
+		];
 	}
 }

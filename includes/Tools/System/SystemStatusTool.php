@@ -88,6 +88,97 @@ class SystemStatusTool implements ToolInterface {
 	}
 
 	public function output_schema(): ?array {
-		return null;
+		return [
+			'type'       => 'object',
+			'required'   => [
+				'wordpress',
+				'environment',
+				'theme',
+				'plugins',
+			],
+			'properties' => [
+				'wordpress' => [
+					'type'       => 'object',
+					'required'   => [
+						'version',
+						'site_url',
+						'home_url',
+						'name',
+						'description',
+						'language',
+						'timezone',
+						'is_multisite',
+						'permalink_structure',
+						'users_can_register',
+						'default_comment_status',
+					],
+					'properties' => [
+						'version'                => [ 'type' => 'string' ],
+						'site_url'               => [ 'type' => 'string', 'format' => 'uri' ],
+						'home_url'               => [ 'type' => 'string', 'format' => 'uri' ],
+						'name'                   => [ 'type' => 'string' ],
+						'description'            => [ 'type' => 'string' ],
+						'language'               => [ 'type' => 'string' ],
+						'timezone'               => [ 'type' => 'string' ],
+						'is_multisite'           => [ 'type' => 'boolean' ],
+						'permalink_structure'    => [ 'type' => 'string' ],
+						'users_can_register'     => [ 'type' => 'boolean' ],
+						'default_comment_status' => [
+							'type' => 'string',
+							'enum' => [ 'open', 'closed' ],
+						],
+					],
+				],
+				'environment' => [
+					'type'       => 'object',
+					'required'   => [
+						'php_version',
+						'mysql_version',
+						'server_software',
+						'wp_memory_limit',
+						'wp_max_memory_limit',
+						'php_memory_limit',
+						'max_upload_size',
+						'debug_mode',
+						'cron_disabled',
+						'object_cache_enabled',
+						'filesystem_method',
+					],
+					'properties' => [
+						'php_version'          => [ 'type' => 'string' ],
+						'mysql_version'        => [ 'type' => 'string' ],
+						'server_software'      => [ 'type' => 'string' ],
+						'wp_memory_limit'      => [ 'type' => 'string' ],
+						'wp_max_memory_limit'  => [ 'type' => 'string' ],
+						'php_memory_limit'     => [ 'type' => 'string' ],
+						'max_upload_size'      => [ 'type' => 'string' ],
+						'debug_mode'           => [ 'type' => 'boolean' ],
+						'cron_disabled'        => [ 'type' => 'boolean' ],
+						'object_cache_enabled' => [ 'type' => 'boolean' ],
+						'filesystem_method'    => [ 'type' => 'string' ],
+					],
+				],
+				'theme' => [
+					'type'       => 'object',
+					'required'   => [
+						'name',
+						'version',
+						'author',
+					],
+					'properties' => [
+						'name'    => [ 'type' => 'string' ],
+						'version' => [ 'type' => 'string' ],
+						'author'  => [ 'type' => 'string' ],
+					],
+				],
+				'plugins' => [
+					'type'       => 'object',
+					'required'   => [ 'active_count' ],
+					'properties' => [
+						'active_count' => [ 'type' => 'integer' ],
+					],
+				],
+			],
+		];
 	}
 }

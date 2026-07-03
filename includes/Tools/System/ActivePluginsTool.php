@@ -86,6 +86,52 @@ class ActivePluginsTool implements ToolInterface {
 	}
 
 	public function output_schema(): ?array {
-		return null;
+		return [
+			'type'       => 'object',
+			'required'   => [ 'count', 'plugins' ],
+			'properties' => [
+				'count' => [
+					'type' => 'integer',
+				],
+				'plugins' => [
+					'type'  => 'array',
+					'items' => [
+						'type'       => 'object',
+						'required'   => [
+							'name',
+							'plugin_file',
+							'version',
+							'author',
+							'description',
+							'plugin_uri',
+							'network_active',
+						],
+						'properties' => [
+							'name' => [
+								'type' => 'string',
+							],
+							'plugin_file' => [
+								'type' => 'string',
+							],
+							'version' => [
+								'type' => 'string',
+							],
+							'author' => [
+								'type' => 'string',
+							],
+							'description' => [
+								'type' => 'string',
+							],
+							'plugin_uri' => [
+								'type' => 'string',
+							],
+							'network_active' => [
+								'type' => 'boolean',
+							],
+						],
+					],
+				],
+			],
+		];
 	}
 }

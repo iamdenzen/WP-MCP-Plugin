@@ -45,6 +45,27 @@ class PingTool implements ToolInterface {
 	}
 
 	public function output_schema(): ?array {
-		return null;
+		return [
+			'type'       => 'object',
+			'required'   => [ 'content' ],
+			'properties' => [
+				'content' => [
+					'type'  => 'array',
+					'items' => [
+						'type'       => 'object',
+						'required'   => [ 'type', 'text' ],
+						'properties' => [
+							'type' => [
+								'type' => 'string',
+								'enum' => [ 'text' ],
+							],
+							'text' => [
+								'type' => 'string',
+							],
+						],
+					],
+				],
+			],
+		];
 	}
 }
