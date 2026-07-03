@@ -63,6 +63,7 @@ class GetProductTool implements ToolInterface {
 	}
 
 	public function output_schema(): ?array {
-		return WooProductFormatter::full_schema();
+		return null;
+		//return WooProductFormatter::full_schema();
 	}
 }
