@@ -33,8 +33,8 @@ class OAuthMetadataController {
 		wp_send_json(
 			[
 				'issuer'                                => home_url(),
-				'authorization_endpoint'                => home_url( '/authorize' ),
-				'token_endpoint'                        => home_url( '/token' ),
+				'authorization_endpoint'                => home_url( '/mcp/authorize' ),
+				'token_endpoint'                        => home_url( '/mcp/token' ),
 				'response_types_supported'              => [
 					'code',
 				],

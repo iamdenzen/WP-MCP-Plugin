@@ -25,7 +25,7 @@ class Plugin {
 		
 		// OAuth Admin Page
 		if ( is_admin() ) {
-			( new \WP_MCP_Server\Admin\AdminMenu() )->register()
+        	( new \WP_MCP_Server\Admin\AdminMenu() )->register();
 			( new \WP_MCP_Server\Admin\OAuthClientsPage() )->register();
 			( new \WP_MCP_Server\Admin\OAuthStatusPage() )->register();
 			( new \WP_MCP_Server\Admin\OAuthConnectedAppsPage() )->register();
@@ -66,8 +66,8 @@ class Plugin {
 			'top'
 		);
 		
-		add_rewrite_rule( '^authorize/?$', 'index.php?wp_mcp_oauth_authorize=1', 'top' );
-		add_rewrite_rule( '^token/?$', 'index.php?wp_mcp_oauth_token=1', 'top' );
+		add_rewrite_rule( '^mcp/authorize/?$', 'index.php?wp_mcp_oauth_authorize=1', 'top' );
+		add_rewrite_rule( '^mcp/token/?$', 'index.php?wp_mcp_oauth_token=1', 'top' );
 	}
 
 	public function register_query_vars( array $vars ): array {
