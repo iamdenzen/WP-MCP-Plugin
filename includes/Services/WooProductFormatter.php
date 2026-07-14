@@ -89,6 +89,8 @@ class WooProductFormatter {
 				'product_id'   => $product->get_id()
 			]
 		);
+
+		return $data;
 	}
 
 	private function image( int $attachment_id, bool $include_binary = false ): ?array {
