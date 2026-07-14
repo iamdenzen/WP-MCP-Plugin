@@ -54,7 +54,7 @@ class GetMediaTool implements ToolInterface {
 
 		return ToolResponse::json(
 			[
-				'media' => $formatter->summary( $attachment ),
+				'media' => $formatter->summary( $attachment, true ),
 			]
 		);
 	}
