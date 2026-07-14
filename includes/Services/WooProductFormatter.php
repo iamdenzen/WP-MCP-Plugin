@@ -21,7 +21,7 @@ class WooProductFormatter {
 			'sale_price'         => $product->get_sale_price(),
 			'stock_status'       => $product->get_stock_status(),
 			'catalog_visibility' => $product->get_catalog_visibility(),
-			'image'              => $this->image( $product->get_image_id() ),
+			'image'              => $this->image( $product->get_image_id(), true ),
 		];
 	}
 
@@ -68,6 +68,7 @@ class WooProductFormatter {
 				'shipping_class_id' => $product->get_shipping_class_id(),
 			],
 
+			'image'  => $this->image( $product->get_image_id(), true ), // main image,
 			'images' => $this->images( $product ),
 
 			'categories' => $this->terms( $product->get_id(), 'product_cat' ),
@@ -90,16 +91,64 @@ class WooProductFormatter {
 		);
 	}
 
-	private function image( int $attachment_id ): ?array {
+	private function image( int $attachment_id, bool $include_binary = false ): ?array {
 		if ( ! $attachment_id ) {
 			return null;
 		}
 
-		return [
+		$image = [
 			'id'  => $attachment_id,
 			'url' => wp_get_attachment_image_url( $attachment_id, 'full' ) ?: null,
 			'alt' => get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ),
 		];
+
+		if ( $include_binary ) {
+			$image['binary'] = $this->image_binary( $attachment_id, 'thumbnail' );
+		}
+
+		return $image;
+	}
+
+	private function image_binary( int $attachment_id, string $size = 'thumbnail' ): ?array {
+		$file_path = $this->attachment_file_path_for_size( $attachment_id, $size );
+
+		if ( ! $file_path || ! file_exists( $file_path ) ) {
+			return null;
+		}
+
+		$contents = file_get_contents( $file_path );
+
+		if ( false === $contents ) {
+			return null;
+		}
+
+		$mime_type = wp_check_filetype( $file_path )['type'] ?? get_post_mime_type( $attachment_id );
+
+		return [
+			'mime_type' => $mime_type ?: 'application/octet-stream',
+			'base64'    => base64_encode( $contents ),
+		];
+	}
+
+	/**
+	 * Resolves the on-disk path for a given intermediate image size,
+	 * falling back to the original file if that size doesn't exist
+	 * (e.g. size wasn't generated, or image is smaller than the size).
+	 */
+	private function attachment_file_path_for_size( int $attachment_id, string $size ): ?string {
+		$original_path = get_attached_file( $attachment_id );
+
+		if ( ! $original_path ) {
+			return null;
+		}
+
+		$metadata = wp_get_attachment_metadata( $attachment_id );
+
+		if ( empty( $metadata['sizes'][ $size ]['file'] ) ) {
+			return $original_path; // fallback: no thumbnail size generated
+		}
+
+		return path_join( dirname( $original_path ), $metadata['sizes'][ $size ]['file'] );
 	}
 
 	private function images( \WC_Product $product ): array {
@@ -219,18 +268,6 @@ class WooProductFormatter {
 			],
 		];
 	}
-
-	public static function image_schema(): array {
-		return [
-			'type'       => [ 'object', 'null' ],
-			'required'   => [ 'id', 'url', 'alt' ],
-			'properties' => [
-				'id'  => [ 'type' => 'integer' ],
-				'url' => [ 'type' => [ 'string', 'null' ] ],
-				'alt' => [ 'type' => 'string' ],
-			],
-		];
-	}
 	
 	public static function full_schema(): array {
 		return [
@@ -311,6 +348,26 @@ class WooProductFormatter {
 					'type'  => 'array',
 					'items' => [
 						'type' => 'integer',
+					],
+				],
+			],
+		];
+	}
+	
+	
+	public static function image_schema(): array {
+		return [
+			'type'       => [ 'object', 'null' ],
+			'required'   => [ 'id', 'url', 'alt' ],
+			'properties' => [
+				'id'     => [ 'type' => 'integer' ],
+				'url'    => [ 'type' => [ 'string', 'null' ] ],
+				'alt'    => [ 'type' => 'string' ],
+				'binary' => [
+					'type'       => [ 'object', 'null' ],
+					'properties' => [
+						'mime_type' => [ 'type' => 'string' ],
+						'base64'    => [ 'type' => 'string' ],
 					],
 				],
 			],
