@@ -34,6 +34,10 @@ class SearchPostsTool implements ToolInterface {
 					'description' => 'Post type to search. Default: post.',
 					'default'     => 'post',
 				],
+				'post_status'	=> [
+					'type'		=> 'string',
+					'description'=> 'Post status to search. possible values includes publish, draft, and trash. Default: publish.'
+				],
 				'limit' => [
 					'type'        => 'integer',
 					'description' => 'Maximum results. Default 10, max 20.',
@@ -62,6 +66,14 @@ class SearchPostsTool implements ToolInterface {
 			$post_type = 'post';
 		}
 
+		$post_status = isset( $arguments['post_status'] )
+			? sanitize_key( $arguments['post_status'] )
+			: 'publish';
+
+		if( !in_array($post_status, ['publish', 'draft', 'trash']) ){
+			$post_status = "publish";
+		}
+
 		$limit = isset( $arguments['limit'] )
 			? absint( $arguments['limit'] )
 			: 10;
@@ -71,7 +83,7 @@ class SearchPostsTool implements ToolInterface {
 		$query = new \WP_Query(
 			[
 				'post_type'              => $post_type,
-				'post_status'            => 'publish',
+				'post_status'            => $post_status,
 				's'                      => $search,
 				'posts_per_page'         => $limit,
 				'no_found_rows'          => true,

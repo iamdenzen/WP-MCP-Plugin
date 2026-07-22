@@ -13,6 +13,7 @@ class PostFormatter {
 			'id'       => $post->ID,
 			'title'    => get_the_title( $post ),
 			'type'     => $post->post_type,
+			'status'   => $post->post_status,
 			'url'      => get_permalink( $post ),
 			'excerpt'  => wp_strip_all_tags( get_the_excerpt( $post ) ),
 			'date'     => get_the_date( DATE_ATOM, $post ),
@@ -24,6 +25,7 @@ class PostFormatter {
 		return [
 			'id'             => $post->ID,
 			'type'           => $post->post_type,
+			'status'		 => $post->post_status,
 			'title'          => get_the_title( $post ),
 			'slug'           => $post->post_name,
 			'url'            => get_permalink( $post ),
@@ -63,11 +65,12 @@ class PostFormatter {
 	public static function summary_schema(): array {
 		return [
 			'type'       => 'object',
-			'required'   => [ 'id', 'title', 'type', 'url', 'excerpt', 'date', 'modified' ],
+			'required'   => [ 'id', 'title', 'type', 'status', 'url', 'excerpt', 'date', 'modified' ],
 			'properties' => [
 				'id'       => [ 'type' => 'integer' ],
 				'title'    => [ 'type' => 'string' ],
 				'type'     => [ 'type' => 'string' ],
+				'status'   => [ 'type' => 'string' ],
 				'url'      => [ 'type' => [ 'string', 'null' ] ],
 				'excerpt'  => [ 'type' => 'string' ],
 				'date'     => [ 'type' => 'string', 'format' => 'date-time' ],
@@ -82,6 +85,7 @@ class PostFormatter {
 			'required'   => [
 				'id',
 				'type',
+				'status',
 				'title',
 				'slug',
 				'url',
@@ -97,6 +101,7 @@ class PostFormatter {
 			'properties' => [
 				'id'             => [ 'type' => 'integer' ],
 				'type'           => [ 'type' => 'string' ],
+				'status'		 => [ 'type' => 'string' ],
 				'title'          => [ 'type' => 'string' ],
 				'slug'           => [ 'type' => 'string' ],
 				'url'            => [ 'type' => [ 'string', 'null' ] ],
