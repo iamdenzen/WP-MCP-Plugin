@@ -27,7 +27,7 @@ class ThemeInfoTool implements ToolInterface {
 	}
 
 	public function required_scopes(): array {
-		return [ 'system:read' ];
+		return [ 'wp:read' ];
 	}
 
 	public function execute( array $arguments = [] ): array {

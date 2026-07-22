@@ -57,7 +57,7 @@ class GetOrderReportTool implements ToolInterface {
 			return ToolResponse::error( 'WooCommerce is not active.' );
 		}
 
-		$data = ( new ReportService() )->order_report( $arguments );
+		$data = ( new WooReportService() )->order_report( $arguments );
 
 		if ( isset( $data['error'] ) ) {
 			return ToolResponse::error( (string) $data['error'] );
